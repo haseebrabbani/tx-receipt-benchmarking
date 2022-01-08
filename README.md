@@ -4,4 +4,6 @@ Quick and dirty benchmark comparing fetching of Ethereum transaction receipts us
 
 ## To run tests
 
-`npm start`
+1. replace the `jsonRpcUrl` variable in `index.js` with your own
+2. `npm install`
+3. `npm start`
