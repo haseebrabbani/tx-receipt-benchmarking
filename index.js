@@ -5,9 +5,7 @@ const axios = require("axios");
 
 const jsonRpcURL = "https://mainnet.infura.io/v3/YOUR_API_KEY";
 const ethersProvider = new ethers.providers.JsonRpcProvider(jsonRpcURL);
-const ethersBatchProvider = new ethers.providers.JsonRpcBatchProvider(
-  jsonRpcURL
-);
+const ethersBatchProvider = new ethers.providers.JsonRpcBatchProvider(jsonRpcURL);
 const web3 = new Web3(jsonRpcURL);
 
 // first 10 transactions from block 13963630
@@ -80,21 +78,16 @@ const providerMap = {
 (async function main() {
   const providers = Object.keys(providerMap);
   for (const provider of providers) {
-    const fetchReceipt = providerMap[provider];
     console.log(`starting ${provider} test...`);
+    const fetchReceipt = providerMap[provider];
     const receipts = [];
 
     const start = Date.now();
     for (const tx of txs) {
       receipts.push(await fetchReceipt(tx));
     }
-    console.log(
-      `${provider} took ${(Date.now() - start) / txs.length} ms/receipt`
-    );
+    console.log(`${provider} took ${(Date.now() - start) / txs.length} ms/receipt`);
 
-    fs.writeFileSync(
-      `${provider}_receipts.json`,
-      JSON.stringify(receipts, null, 2)
-    );
+    fs.writeFileSync(`${provider}_receipts.json`, JSON.stringify(receipts, null, 2));
   }
 })();
